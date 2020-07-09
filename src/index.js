@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import PersonShowPage from './components/PersonShowPage';
+import PersonIndexPage from './components/PersonIndexPage';
 
 ReactDOM.render(
   <React.StrictMode>
-    <PersonShowPage />
+    <PersonIndexPage />
   </React.StrictMode>,
   document.getElementById('root')
 );

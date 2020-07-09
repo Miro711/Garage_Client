@@ -1,26 +1,19 @@
-import React, {Component} from "react";
+import React from "react";
 import PersonDetails from "./PersonDetails";
 import CarList from "./CarList";
-import onePersonData from "../onePersonData";
 
-class PersonShowPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            person: {...onePersonData},
-        };
-    }
-    render() {
-        return (
-            <main>
-              <PersonDetails
-                {...this.state.person}
-              />
-              <h2>Cars</h2>
-              <CarList cars={this.state.person.cars} />
-            </main>
-          );
-    }
+function PersonShowPage(props) {
+    return (
+        <div>
+            <PersonDetails
+                first_name={props.first_name}
+                last_name={props.last_name}
+                email={props.email}
+            />
+            <h2>Cars</h2>
+            <CarList cars={props.cars} />
+        </div>
+    );
 }
 
 export default PersonShowPage;
