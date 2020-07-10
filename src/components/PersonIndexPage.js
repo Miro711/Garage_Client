@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Person } from '../requests';
 import PersonShowPage from './PersonShowPage';
+import NewPersonForm from './NewPersonForm';
 
 class PersonIndexPage extends Component {
     constructor(props) {
@@ -8,7 +9,9 @@ class PersonIndexPage extends Component {
 		this.state = {
             persons: [],
             isLoading: true,
+            errors: [],
         };
+        this.createPerson = this.createPerson.bind(this);
     }
     
     
@@ -19,6 +22,25 @@ class PersonIndexPage extends Component {
                 isLoading: false,
             });
         });
+    }
+    
+    createPerson(params) {
+        Person.create(params).then((res) => {
+            if (res.errors) {
+                this.setState({
+                    errors: res.errors
+                });
+            } else {
+                Person.one(res.id).then((person) => {
+                    this.setState({
+                        persons: [person,...this.state.persons],
+                        isLoading: false,
+                    });     
+                });
+            }
+        }
+            
+        );
 	}
 
 	render() {
@@ -38,6 +60,7 @@ class PersonIndexPage extends Component {
         }
 		return (
 			<main>
+                <NewPersonForm onSubmit={this.createPerson} />
 				<h1>Owners</h1>
 				<ul>
 					{
