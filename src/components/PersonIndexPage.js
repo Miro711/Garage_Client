@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Person, Car } from '../requests';
 import PersonShowPage from './PersonShowPage';
 import NewPersonForm from './NewPersonForm';
+import NewCarForm from './NewCarForm';
 
 class PersonIndexPage extends Component {
     constructor(props) {
@@ -12,6 +13,7 @@ class PersonIndexPage extends Component {
             errors: [],
         };
         this.createPerson = this.createPerson.bind(this);
+        this.createCar = this.createCar.bind(this);
         this.deleteCar = this.deleteCar.bind(this);
     }
     
@@ -43,7 +45,6 @@ class PersonIndexPage extends Component {
     }
     
     deletePerson(id) {
-        console.log('Deleting', id);
         Person.delete(id).then((res) => {
             if (res.status === 200) {
                 this.setState((state, props) => {
@@ -58,7 +59,7 @@ class PersonIndexPage extends Component {
     }
 
     deleteCar(carId, personId) {
-        Car.delete(carId, personId).then((res) => {
+        Car.delete(personId, carId).then((res) => {
             if (res.status === 200) {
                 this.setState((state, props) => {
                     const personIndex = state.persons.findIndex(element => element.id === personId)
@@ -71,6 +72,26 @@ class PersonIndexPage extends Component {
             }
         });
     }
+
+    createCar(params) {
+        const personId = params.personId;
+        Car.create(personId, params).then((res) => {
+            if (res.errors) {
+                this.setState({
+                    errors: res.errors
+                });
+            } else {
+                Car.one(personId, res.id).then((car) => { 
+                    const personIndex = this.state.persons.findIndex(element => element.id === parseInt(personId))
+                    let newArray = [...this.state.persons]
+                    newArray[personIndex].cars.unshift(car)
+                    this.setState({                        
+                        persons: newArray
+                    });  
+                });
+            }
+        });
+	}
 
 	render() {
         if (this.state.isLoading) {
@@ -90,6 +111,12 @@ class PersonIndexPage extends Component {
 		return (
 			<main>
                 <NewPersonForm onSubmit={this.createPerson} />
+                <NewCarForm 
+                    onSubmit={this.createCar} 
+                    owners={this.state.persons.map(function(p) {
+                        return {id: p.id, name: `${p.first_name} ${p.last_name}`}
+                    })}
+                />
 				<h1>Owners</h1>
 				<ul>
 					{
