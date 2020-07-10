@@ -72,7 +72,17 @@ const Car = {
 		return fetch(`${BASE_URL}/people/${person_id}/cars/${id}`, {
 			credentials: 'include',
 		}).then((res) => res.json());
-	}
+    },
+    update(person_id, id, params) {
+        return fetch(`${BASE_URL}/people/${person_id}/cars/${id}`, {
+			method: 'PATCH',
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(params),
+		}).then((res) => res.json());
+    }
 };
 
 export { Person, Car };
