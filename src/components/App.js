@@ -5,7 +5,7 @@ import "../styles/App.css";
 function App() {
   return (
     <>
-      <div class="AppTitle">The Garage: Drivers and their Wheels</div>
+      <div class="AppTitle">The GARAGE: Drivers and their Wheels</div>
       <PersonIndexPage />
     </>
   );

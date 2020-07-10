@@ -15,7 +15,7 @@ function NewPersonForm(props) {
 		currentTarget.reset();
 	}
 	return (
-		<form className="form-inline mx-auto new-person-form" onSubmit={handleSubmit}>
+		<form className="form-inline mx-auto new-person-form mb-3" onSubmit={handleSubmit}>
 			<div className="form-group mb-2">
 				<input name="first_name" id="first_name" placeholder="First Name" />
 			</div>
