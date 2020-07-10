@@ -1,4 +1,5 @@
 import React from 'react';
+import "../styles/NewPersonForm.css";
 
 function NewPersonForm(props) {
 	function handleSubmit(event) {
@@ -14,19 +15,15 @@ function NewPersonForm(props) {
 		currentTarget.reset();
 	}
 	return (
-		<form className="NewPersonForm" onSubmit={handleSubmit}>
-			<div>
-				<label htmlFor="first_name">First Name</label>
-				<br />
-				<input name="first_name" id="first_name" />
+		<form className="form-inline mx-auto new-person-form" onSubmit={handleSubmit}>
+			<div className="form-group mb-2">
+				<input name="first_name" id="first_name" placeholder="First Name" />
+			</div>
+			<div className="form-group mx-sm-3 mb-2">
+				<input name="last_name" id="last_name" placeholder="Last Name" />
 			</div>
 			<div>
-				<label htmlFor="last_name">Last Name</label>
-				<br />
-				<textarea name="last_name" id="last_name" />
-			</div>
-			<div>
-				<input type="submit" value="Submit" />
+				<input type="submit" value="Add Driver" className="btn btn-primary mb-2" />
 			</div>
 		</form>
 	);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import "../styles/NewCarForm.css";
 
 class NewCarForm extends Component {
     constructor(props) {
@@ -32,37 +33,27 @@ class NewCarForm extends Component {
     render() {
         const selected = this.state.selected;
         return (
-            <form className="NewCarForm" onSubmit={this.handleSubmit}>
-                <div>
-                    <label htmlFor="year">Year</label>
-                    <br />
-                    <input name="year" id="year" />
+            <form className="mx-auto new-car-form" onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                    <input name="year" id="year" placeholder="Year" className="form-control" />
                 </div>
-                <div>
-                    <label htmlFor="make">Make</label>
-                    <br />
-                    <input name="make" id="make" />
+                <div className="form-group">
+                    <input name="make" id="make" placeholder="Make" className="form-control" />
                 </div>
-                <div>
-                    <label htmlFor="model">Model</label>
-                    <br />
-                    <input name="model" id="model" />
+                <div className="form-group">
+                    <input name="model" id="model" placeholder="Model" className="form-control" />
                 </div>
-                <div>
-                    <label htmlFor="price">Price</label>
-                    <br />
-                    <input name="price" id="price" />
+                <div className="form-group">
+                    <input name="price" id="price" placeholder="Price" className="form-control" />
                 </div>
-                <select name="cars" id="cars" onChange={this.props.owners}>
+                <select name="cars" id="cars" onChange={this.props.owners} className="form-control" >
                     {
                         this.props.owners.map(function(owner) { 
                             return (<option key={owner.id} value={owner.id} selected={selected === owner.id}>{owner.name}</option>);
                         })
                     }
                 </select>
-                <div>
-                    <input type="submit" value="Submit" />
-                </div>
+                    <input type="submit" value="Add Car" className="btn btn-primary form-control my-2" />
             </form>
         );
     };

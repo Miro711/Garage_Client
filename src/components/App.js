@@ -1,9 +1,13 @@
 import React from 'react';
 import PersonIndexPage from './PersonIndexPage';
+import "../styles/App.css";
 
 function App() {
   return (
-    <PersonIndexPage />
+    <>
+      <div class="AppTitle">The Garage: Drivers and their Wheels</div>
+      <PersonIndexPage />
+    </>
   );
 }
 
