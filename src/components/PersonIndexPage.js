@@ -38,9 +38,22 @@ class PersonIndexPage extends Component {
                     });     
                 });
             }
-        }
-            
-        );
+        });
+    }
+    
+    deletePerson(id) {
+        console.log('Deleting', id);
+        Person.delete(id).then((res) => {
+            if (res.status === 200) {
+                this.setState((state, props) => {
+                    return {
+                        persons: state.persons.filter(
+                            (person) => person.id !== id,
+                        ),
+                    };
+                });
+            }
+        });
 	}
 
 	render() {
@@ -71,7 +84,8 @@ class PersonIndexPage extends Component {
                                         first_name={person.first_name} 
                                         last_name={person.last_name} 
                                         email={person.email} 
-                                        cars={person.cars} 
+                                        cars={person.cars}
+                                        onPersonDelete={() => this.deletePerson(person.id)} 
                                     />
                                 </li>
                             )

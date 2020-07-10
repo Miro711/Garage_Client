@@ -8,7 +8,7 @@ function PersonDetails(props) {
       <button onClick={() => props.editPerson(props.id)}>
         Edit
       </button>
-      <button onClick={() => props.deletePerson(props.id)}>
+      <button onClick={() => props.onPersonDelete(props.id)}>
         Delete
       </button>
     </div>

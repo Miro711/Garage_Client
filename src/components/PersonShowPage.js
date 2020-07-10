@@ -9,6 +9,7 @@ function PersonShowPage(props) {
                 first_name={props.first_name}
                 last_name={props.last_name}
                 email={props.email}
+                onPersonDelete={props.onPersonDelete}
             />
             <h2>Cars</h2>
             <CarList cars={props.cars} />
