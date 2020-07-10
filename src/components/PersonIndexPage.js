@@ -91,9 +91,12 @@ class PersonIndexPage extends Component {
                 });
             }
         });
-	}
+    }
 
 	render() {
+        let allOwners = this.state.persons.map(function(p) {
+            return {id: p.id, name: `${p.first_name} ${p.last_name}`}
+        });
         if (this.state.isLoading) {
 			return (
 				<main>
@@ -113,9 +116,7 @@ class PersonIndexPage extends Component {
                 <NewPersonForm onSubmit={this.createPerson} />
                 <NewCarForm 
                     onSubmit={this.createCar} 
-                    owners={this.state.persons.map(function(p) {
-                        return {id: p.id, name: `${p.first_name} ${p.last_name}`}
-                    })}
+                    owners={allOwners}
                 />
 				<h1>Owners</h1>
 				<ul>
@@ -131,6 +132,7 @@ class PersonIndexPage extends Component {
                                         cars={person.cars}
                                         onPersonDelete={() => this.deletePerson(person.id)}
                                         onCarDelete={this.deleteCar}
+                                        owners={allOwners}
                                     />
                                 </li>
                             )

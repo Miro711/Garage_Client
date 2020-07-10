@@ -14,9 +14,11 @@ class PersonShowPage extends Component {
                     onPersonDelete={this.props.onPersonDelete}
                 />
                 <h2>Cars</h2>
-                <CarList 
+                <CarList
+                    person_id={this.props.id} 
                     cars={this.props.cars} 
                     onCarDelete={this.props.onCarDelete}
+                    owners={this.props.owners}
                 />
             </div>
         );

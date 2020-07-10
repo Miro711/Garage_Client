@@ -3,9 +3,9 @@ import CarDetails from "./CarDetails";
 
 function CarList(props) {
   return (
-    <ul>
+    <ul id={`owner-${props.person_id}`}>
       {props.cars.map(car => (
-        <li key={car.id}>
+        <li key={car.id} id={`car-${car.id}`}>
           <CarDetails
             id={car.id}
             year={car.year}
@@ -14,6 +14,7 @@ function CarList(props) {
             price={car.price}
             person_id={car.person_id}
             onCarDelete={props.onCarDelete}
+            owners={props.owners}
           />
         </li>
       ))}

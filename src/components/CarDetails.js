@@ -10,6 +10,7 @@ class CarDetails extends Component {
           make: this.props.make,
           model: this.props.model,
           price: this.props.price,
+          ownerId: this.props.person_id,
           errors: []
         };
     }
@@ -19,7 +20,8 @@ class CarDetails extends Component {
         const updatedMake = this.refs.makeText.value;
         const updatedModel = this.refs.modelText.value;
         const updatedPrice = this.refs.priceText.value;
-        Car.update(this.props.person_id, this.props.id, {year: updatedYear, make: updatedMake, model: updatedModel, price: updatedPrice}).then((res) => {
+        const updatedOwnerId = this.refs.ownerText.value;
+        Car.update(this.props.person_id, this.props.id, {year: updatedYear, make: updatedMake, model: updatedModel, price: updatedPrice, person_id: updatedOwnerId}).then((res) => {
             if (res.errors) {
                 this.setState({
                     errors: res.errors
@@ -31,13 +33,22 @@ class CarDetails extends Component {
                     make: updatedMake,
                     model: updatedModel,
                     price: updatedPrice,
+                    ownerId: updatedOwnerId
                 })
             }
         });
+        if (updatedOwnerId !== this.props.person_id) {
+            var carNodeToMove = document.getElementById(`car-${this.props.id}`);
+            var newOwnerNode = document.getElementById(`owner-${updatedOwnerId}`)
+            if (newOwnerNode) {
+                newOwnerNode.prepend(carNodeToMove);     
+            }
+        }
     }
 
     render() {
-        const { id, person_id, onCarDelete } = this.props;
+        const { id, person_id, onCarDelete, owners } = this.props;
+        const carOwnerId = this.state.ownerId;
         return (
             <div>
                 {!this.state.editing ? (
@@ -57,6 +68,13 @@ class CarDetails extends Component {
                         <input type="text" defaultValue={this.state.make} ref="makeText" />
                         <input type="text" defaultValue={this.state.model} ref="modelText" />
                         <input type="text" defaultValue={this.state.price} ref="priceText" />
+                        <select name="cars" ref="ownerText" >
+                        {
+                            owners.map(function(owner) { 
+                                return (<option key={owner.id} value={owner.id} selected={carOwnerId === owner.id}>{owner.name}</option>);
+                            })
+                        }
+                        </select>
                         <button onClick={this.updateCarDetails}>
                             Update
                         </button>
