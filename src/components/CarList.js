@@ -7,10 +7,13 @@ function CarList(props) {
       {props.cars.map(car => (
         <li key={car.id}>
           <CarDetails
+            id={car.id}
             year={car.year}
             make={car.make}
             model={car.model}
             price={car.price}
+            person_id={car.person_id}
+            onCarDelete={props.onCarDelete}
           />
         </li>
       ))}

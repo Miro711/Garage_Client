@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Person } from '../requests';
+import { Person, Car } from '../requests';
 import PersonShowPage from './PersonShowPage';
 import NewPersonForm from './NewPersonForm';
 
@@ -12,6 +12,7 @@ class PersonIndexPage extends Component {
             errors: [],
         };
         this.createPerson = this.createPerson.bind(this);
+        this.deleteCar = this.deleteCar.bind(this);
     }
     
     
@@ -54,7 +55,22 @@ class PersonIndexPage extends Component {
                 });
             }
         });
-	}
+    }
+
+    deleteCar(carId, personId) {
+        Car.delete(carId, personId).then((res) => {
+            if (res.status === 200) {
+                this.setState((state, props) => {
+                    const personIndex = state.persons.findIndex(element => element.id === personId)
+                    let newArray = [...state.persons]
+                    newArray[personIndex] = {...newArray[personIndex], cars: newArray[personIndex].cars.filter((car) => car.id !== carId)}
+                    return {
+                        persons: newArray
+                    };
+                });
+            }
+        });
+    }
 
 	render() {
         if (this.state.isLoading) {
@@ -85,7 +101,8 @@ class PersonIndexPage extends Component {
                                         last_name={person.last_name} 
                                         email={person.email} 
                                         cars={person.cars}
-                                        onPersonDelete={() => this.deletePerson(person.id)} 
+                                        onPersonDelete={() => this.deletePerson(person.id)}
+                                        onCarDelete={this.deleteCar}
                                     />
                                 </li>
                             )

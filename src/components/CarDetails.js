@@ -12,7 +12,7 @@ function CarDetails(props) {
       <button onClick={() => props.editCar(props.id)}>
         Edit
       </button>
-      <button onClick={() => props.deleteCar(props.id)}>
+      <button onClick={() => props.onCarDelete(props.id, props.person_id)}>
         Delete
       </button>
     </div>
