@@ -33,14 +33,14 @@ class PersonDetails extends Component {
     render() {
         const { id, onPersonDelete } = this.props;
         return (
-            <div>
+            <div className="card-header">
                 {!this.state.editing ? (
                     <div>
                         <h2>{this.state.firstName} {this.state.lastName}</h2>
-                        <button onClick={() => this.setState({ editing: true })}>
+                        <button className="btn btn-primary mr-2" onClick={() => this.setState({ editing: true })}>
                             Edit
                         </button>
-                        <button onClick={() => onPersonDelete(id)}>
+                        <button className="btn btn-danger" onClick={() => onPersonDelete(id)}>
                             Delete
                         </button>
                     </div>
@@ -48,10 +48,10 @@ class PersonDetails extends Component {
                     <div>
                         <input type="text" defaultValue={this.state.firstName} ref="firstText" />
                         <input type="text" defaultValue={this.state.lastName} ref="lastText" />
-                        <button onClick={this.updatePersonDetails}>
+                        <button className="btn btn-primary mr-2" onClick={this.updatePersonDetails}>
                             Update
                         </button>
-                        <button onClick={() => this.setState({ editing: false })}>
+                        <button className="btn btn-danger" onClick={() => this.setState({ editing: false })}>
                             Cancel
                         </button>
                     </div>

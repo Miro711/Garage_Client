@@ -50,15 +50,15 @@ class CarDetails extends Component {
         const { id, person_id, onCarDelete, owners } = this.props;
         const carOwnerId = this.state.ownerId;
         return (
-            <div>
+            <div className="card mb-4 p-2">
                 {!this.state.editing ? (
                     <div>
                         <h2>{this.state.year} {this.state.make} {this.state.model}</h2>
                         <p>${this.state.price}</p>
-                        <button onClick={() => this.setState({ editing: true })}>
+                        <button className="btn btn-primary mr-2" onClick={() => this.setState({ editing: true })}>
                             Edit
                         </button>
-                        <button onClick={() => onCarDelete(id, person_id)}>
+                        <button className="btn btn-danger" onClick={() => onCarDelete(id, person_id)}>
                             Delete
                         </button>
                     </div>
@@ -68,17 +68,19 @@ class CarDetails extends Component {
                         <input type="text" defaultValue={this.state.make} ref="makeText" />
                         <input type="text" defaultValue={this.state.model} ref="modelText" />
                         <input type="text" defaultValue={this.state.price} ref="priceText" />
-                        <select name="cars" ref="ownerText" >
-                        {
-                            owners.map(function(owner) { 
-                                return (<option key={owner.id} value={owner.id} selected={carOwnerId === owner.id}>{owner.name}</option>);
-                            })
-                        }
-                        </select>
-                        <button onClick={this.updateCarDetails}>
+                        <div>
+                            <select name="cars" ref="ownerText" >
+                            {
+                                owners.map(function(owner) { 
+                                    return (<option key={owner.id} value={owner.id} selected={carOwnerId === owner.id}>{owner.name}</option>);
+                                })
+                            }
+                            </select>
+                        </div>
+                        <button className="btn btn-primary mr-2" onClick={this.updateCarDetails}>
                             Update
                         </button>
-                        <button onClick={() => this.setState({ editing: false })}>
+                        <button className="btn btn-danger" onClick={() => this.setState({ editing: false })}>
                             Cancel
                         </button>
                     </div>

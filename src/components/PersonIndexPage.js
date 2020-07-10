@@ -45,32 +45,38 @@ class PersonIndexPage extends Component {
     }
     
     deletePerson(id) {
-        Person.delete(id).then((res) => {
-            if (res.status === 200) {
-                this.setState((state, props) => {
-                    return {
-                        persons: state.persons.filter(
-                            (person) => person.id !== id,
-                        ),
-                    };
-                });
-            }
-        });
+        let alertAnswer = window.confirm("Are you sure you want to delete driver?");
+        if (alertAnswer) {
+            Person.delete(id).then((res) => {
+                if (res.status === 200) {
+                    this.setState((state, props) => {
+                        return {
+                            persons: state.persons.filter(
+                                (person) => person.id !== id,
+                            ),
+                        };
+                    });
+                }
+            });
+        }
     }
 
     deleteCar(carId, personId) {
-        Car.delete(personId, carId).then((res) => {
-            if (res.status === 200) {
-                this.setState((state, props) => {
-                    const personIndex = state.persons.findIndex(element => element.id === personId)
-                    let newArray = [...state.persons]
-                    newArray[personIndex] = {...newArray[personIndex], cars: newArray[personIndex].cars.filter((car) => car.id !== carId)}
-                    return {
-                        persons: newArray
-                    };
-                });
-            }
-        });
+        let alertAnswer = window.confirm("Are you sure you want to delete car?");
+        if (alertAnswer) {
+            Car.delete(personId, carId).then((res) => {
+                if (res.status === 200) {
+                    this.setState((state, props) => {
+                        const personIndex = state.persons.findIndex(element => element.id === personId)
+                        let newArray = [...state.persons]
+                        newArray[personIndex] = {...newArray[personIndex], cars: newArray[personIndex].cars.filter((car) => car.id !== carId)}
+                        return {
+                            persons: newArray
+                        };
+                    });
+                }
+            });
+        }
     }
 
     createCar(params) {
@@ -118,12 +124,13 @@ class PersonIndexPage extends Component {
                     onSubmit={this.createCar} 
                     owners={allOwners}
                 />
-				<h1>Owners</h1>
-				<ul>
+				<h1 className="mx-5 text-uppercase text-success">Drivers</h1>
+                <div className="container-fluid">
+                    <ul className="no-bullets row mx-4">
 					{
                         this.state.persons.map((person) => {
                             return (
-                                <li key={person.id}>
+                                <li key={person.id} className="no-bullets col-4 my-4">
                                     <PersonShowPage 
                                         id={person.id}
                                         first_name={person.first_name} 
@@ -138,7 +145,8 @@ class PersonIndexPage extends Component {
                             )
                         })            
                     }
-				</ul>
+				    </ul>
+                </div>
 			</main>
 		);
 	}

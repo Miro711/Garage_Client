@@ -5,7 +5,7 @@ import CarList from "./CarList";
 class PersonShowPage extends Component {
     render () {
         return (
-            <div>
+            <div className="card">
                 <PersonDetails
                     id={this.props.id}
                     first_name={this.props.first_name}
@@ -13,7 +13,6 @@ class PersonShowPage extends Component {
                     email={this.props.email}
                     onPersonDelete={this.props.onPersonDelete}
                 />
-                <h2>Cars</h2>
                 <CarList
                     person_id={this.props.id} 
                     cars={this.props.cars} 
