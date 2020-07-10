@@ -124,6 +124,7 @@ class PersonIndexPage extends Component {
                             return (
                                 <li key={person.id}>
                                     <PersonShowPage 
+                                        id={person.id}
                                         first_name={person.first_name} 
                                         last_name={person.last_name} 
                                         email={person.email} 

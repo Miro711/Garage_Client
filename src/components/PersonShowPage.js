@@ -7,6 +7,7 @@ class PersonShowPage extends Component {
         return (
             <div>
                 <PersonDetails
+                    id={this.props.id}
                     first_name={this.props.first_name}
                     last_name={this.props.last_name}
                     email={this.props.email}
